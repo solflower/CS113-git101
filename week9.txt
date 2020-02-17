@@ -1,0 +1,58 @@
+Structure
+
+structure เป็นโครงสร้างข้อมูลที่เก็บตัวแปรที่มีความเกี่ยวข้องกันไว้ภายใน โดยแต่ละตัวแปรจะมีdata type ที่แตกต่างกันไปก็ได้
+และชื่อของตัวแปรภายในต้องแตกต่างกัน
+
+//example//
+    struct student_info                 * ไม่สามารถเปรียบเทียบ structure ได้
+    {
+        char name[20];
+        char faculty[30];
+        unsigned int age;
+    };
+
+ถ้าต้องการเข้าถึงสมาชิกแต่ละตัวใน structure
+
+    struct card
+    {
+        char *face;
+        char *suit;
+    };
+
+    struct card aCard; //ประกาศ aCard ที่เป็น structure ขึ้นมา
+    struct card *cardPtr = &aCard //ประกาศ pointer cardPtr ให้ชี้ไปที่ aCard
+
+1) เข้าถึงที่ตัวสมาชิกเลยใช้ dot(.) e.g. aCard.face, aCard.suit
+2) เข้าถึงสมาชิกโดยใช้ pointer ชี้ใช้ arrow(->) e.g. cardPtr->face, cardPtr->suit
+3) เข้าถึงสมาชิกโดยใช้ dot แต่ใช้ pointer ที่ใช้ไปหา stucture e.g. (*cardPtr).face, (*cardPtr).suit
+
+Program Example
+ให้เขียนโปรแกรมที่รับค่ากว้าง ยาว สูง ของกล่องใบหนึ่ง และรับค่ารัศมีของวงกลมรูปหนึ่ง จากนั้นประกาศค่าปริมาตรของสี่เหลี่ยม และพื้นที่วงกลมออกมา
+โดยสร้าง structure ของวงกลม และสี่เหลี่ยมด้วย
+
+    #include<stdio.h>
+    #include<math.h>
+
+    struct box{int width, height, length;};
+    struct circle{int radius;};
+
+    int boxVolume(struct box Box){
+        return Box.width * Box.height * Box.length;
+    }
+    int circleArea(struct circle Ball){
+        return M_PI * pow(Ball.radius,2);
+    }
+
+    int main(){
+        struct box boxA;
+        struct circle ballB;
+        
+        printf("Enter boxA's dimensions: ");
+        scanf("%d %d %d",&boxA.width, &boxA.height, &boxA.length);
+
+        printf("Enter circle's radius: ");
+        scanf("%d",&ballB.radius);
+
+        printf("Box volume = %d\n",boxVolume(boxA));
+        printf("Circle area = %d",circleArea(ballB));
+    }
